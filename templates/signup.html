@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <title>Sign up</title>
+</head>
+<body>
+    <nav class="navbar bg-light" style="height:68px">
+        <div class="container-fluid container-lg">
+            <a class="navbar-brand">AskPupkin</a>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="btn btn-dark" type="submit" value="Ask!">
+            </form>
+            <div class="d-flex justify-content-between gap-2" height="50" style="width:185px;">
+                <div class="d-flex flex-column justify-content-between">
+                  <div class="d-flex justify-content-evenly gap-2">
+                    <a href="../templates/login.html">Log in</a>
+                    <a href="../templates/signup.html">Register</a>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </nav>
+      <main class="container-lg mt-3">
+        <div class="row">
+          <div class="col-8" style="margin-right: 10px;">
+            <h1>Sign up</h1>
+            <div class="row g-0 mb-3">
+                <div class="col-3 p-2">
+                  <span>Login</span>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
+                    </div>
+                </div>
+              </div>
+              <div class="row g-0 mb-3">
+                <div class="col-3 p-2">
+                  <span>Email address</span>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
+                    </div>
+                </div>
+              </div>
+              <div class="row g-0 mb-3">
+                <div class="col-3 p-2">
+                  <span>NickName</span>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
+                    </div>
+                </div>
+              </div>
+              <div class="row g-0 mb-3">
+                <div class="col-3 p-2">
+                  <span>Upload avatar</span>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex gap-2">
+                        <input type="text" value="c:\avatar.jpg" style="max-width: 170px; border-radius: 5px;" readonly="true"/>
+                        <input class="btn btn-dark" type="button" value="Choose">
+                      </div>
+                </div>
+              </div>
+              <div class="row g-0 mb-3">
+                <div class="col-3 p-2 text-center">
+                    <button type="button" class="btn btn-dark">Register</button>
+                </div>
+              </div>
+          </div>
+          <div class="col">
+            <h3>Popular Tags</h3>
+            <div class="row">
+              <div class="col">
+                <span class="badge text-bg-primary">perl</span>
+                <span class="badge text-bg-secondary">python</span>
+                <span class="badge text-bg-success">SQL</span>
+                <span class="badge text-bg-danger">TechnoPark</span>
+                <span class="badge text-bg-warning">django</span>
+                <span class="badge text-bg-info">mail.ru</span>
+                <span class="badge text-bg-light">Voloshin</span>
+                <span class="badge text-bg-dark">Firefox</span>
+              </div>
+            </div>
+            <h3 class="mt-5">Best Members</h3>
+            <div>
+              <a href="/member.html" class="d-block">Mr. Freeman</a
+              ><a href="/member.html" class="d-block">Dr. Pepper</a
+              ><a href="/member.html" class="d-block">Ksenia Bardykina</a
+              ><a href="/member.html" class="d-block">Queen Victoria</a
+              ><a href="/member.html" class="d-block">V. Pupkin</a>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer class="fixed-bottom p-3 bg-light">
+        <div class="container">
+          <span class="text-muted">AskPupkin</span>
+        </div>
+      </footer>
+      <script
+        src="../static/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+      ></script>
+</body>
+</html>
