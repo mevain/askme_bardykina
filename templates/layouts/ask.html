@@ -1,0 +1,40 @@
+{% load static %}
+<div class="col-8" style="margin-right: 30px;">
+    <h1>New Question</h1>
+    <p style="color: red;">Error uploading the question</p>
+      <div class="row g-0 mb-3">
+        <div class="col-1 p-2">
+          <span>Title</span>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <textarea class="form-control" rows="1" style="resize: none;" maxlength="100"></textarea>
+            </div>
+        </div>
+      </div>
+      <div class="row g-0 mb-3">
+        <div class="col-1 p-2">
+          <span>Text</span>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <textarea class="form-control" rows="10" style="resize: none;" maxlength="1000"></textarea>
+            </div>
+        </div>
+      </div>
+      <div class="row g-0 mb-3">
+        <div class="col-1 p-2">
+          <span>Tags</span>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <textarea class="form-control" rows="1" style="resize: none;" maxlength="1000"></textarea>
+            </div>
+        </div>
+      </div>
+      <div class="row g-0 mb-3">
+        <div class="col-3 p-2 text-center">
+            <button type="button" class="btn btn-dark" onclick="location.href='{% url 'index' %}'">Ask</button>
+        </div>
+      </div>
+    </div>

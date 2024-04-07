@@ -1,0 +1,9 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+*.pyc
+.askme_venv
+askme_venv/
+.idea
+db.sqlite3
+

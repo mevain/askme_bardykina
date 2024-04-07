@@ -1,16 +1,18 @@
-
 {% extends "layouts/base.html" %}
 {% load static %}
 
-{%block content%}
-         <div class="col-8" style="margin-right: 30px;">
-            <h1>Sign up</h1>
-            <p style="color: red">This nickname is already taken</p>
+{% block title %}
+<title>Profile settings</title>
+{% endblock%}
+
+{% block content %}
+          <div class="col-8" style="margin-right: 30px;">
+            <h1>Settings: Dr. Pepper</h1>
             <div class="row g-0 mb-3">
                 <div class="col-3 p-2">
                   <span>Login</span>
                 </div>
-                <div class="col-6">
+                <div class="col">
                     <div class="form-group">
                         <textarea class="form-control" rows="1" style="resize: none;"></textarea>
                     </div>
@@ -20,7 +22,7 @@
                 <div class="col-3 p-2">
                   <span>Email address</span>
                 </div>
-                <div class="col-6">
+                <div class="col">
                     <div class="form-group">
                         <textarea class="form-control" rows="1" style="resize: none;"></textarea>
                     </div>
@@ -30,7 +32,7 @@
                 <div class="col-3 p-2">
                   <span>NickName</span>
                 </div>
-                <div class="col-6">
+                <div class="col">
                     <div class="form-group">
                         <textarea class="form-control" rows="1" style="resize: none;"></textarea>
                     </div>
@@ -40,16 +42,21 @@
                 <div class="col-3 p-2">
                   <span>Upload avatar</span>
                 </div>
-                <div class="col-6">
-                    <div class="d-flex gap-2">
-                        <input type="text" value="c:\avatar.jpg" style="max-width: 170px; border-radius: 5px;" readonly="true"/>
-                        <input class="btn btn-dark" type="button" value="Choose">
+                <div class="col">
+                    <div class="border mb-3" style="height: 100px; width:196.5px">
+                        <img
+                          src="{% static 'img/img.jpg' %}"
+                          class="img-fluid rounded-start"
+                          alt="avatar"
+                          style="width:196.5px;height:100px;object-fit: cover"
+                        />
                       </div>
+                      <button type="button" class="btn btn-dark">Choose</button>
                 </div>
               </div>
               <div class="row g-0 mb-3">
-                <div class="col-3 p-2 text-center">
-                    <button type="button" class="btn btn-dark" onclick="location.href='{% url 'index' %}'">Register</button>
+                <div class="col-3 p-2">
+                    <button type="button" class="btn btn-dark">Save</button>
                 </div>
               </div>
           </div>

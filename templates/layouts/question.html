@@ -1,0 +1,40 @@
+{% load static %}
+<div class="card w-100 mb-3">
+    <div class="row g-0">
+      <div class="col-3 p-2">
+        <div class="border w-100 mb-3" style="height: 100px">
+          <img
+          src="{% static 'img/img.jpg' %}"
+          class="img-fluid rounded-start"
+          alt="avatar"
+          style="width:196.5px;height:100px;object-fit: cover"
+          />
+        </div>
+        <div class="d-flex justify-content-center gap-2" style="align-items: center;">
+          <input class="btn btn-dark" type="button" value="Like">
+          <label style="height: 38px; display: inline-flex; align-items: center;
+           justify-content: center; gap: 3px; margin-right: 2px; margin-left: 3px; padding-right: 2px;">
+            5
+          </label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{%url "question" item.id%}">{{ item.title }}</a>
+          </h5>
+          <p class="card-text">
+            {{ item.text }}
+          </p>
+          <div class="row">
+            <a class="col-4" href="/question.html">answers (5)</a>
+            <div class="col-8">
+              <span>Tags</span>
+              <a href="{%url 'tag' tag_name="black-jack"%}">black-jack</a>
+              <a href="{%url 'tag' tag_name="bender"%}">bender</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
