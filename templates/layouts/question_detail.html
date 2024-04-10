@@ -13,9 +13,8 @@
         <input class="btn btn-dark" type="button" value="Like">
         <label style="height: 38px; display: inline-flex; align-items: center;
          justify-content: center; gap: 3px; margin-right: 2px; margin-left: 3px; padding-right: 2px;">
-          5
+         {{ item.like_number }}
         </label>
-        <!-- <input class="btn btn-dark" type="button" value="Like"> -->
       </div>
     </div>
     <div class="col-9">
@@ -30,8 +29,9 @@
       <div class="row">
         <div class="col-8">
           <span>Tags</span>
-          <a href="{%url 'tag' tag_name="black-jack"%}">black-jack</a>
-          <a href="{%url 'tag' tag_name="bender"%}">bender</a>
+          {%for tag in item.tags.all%}
+                <a href="{%url 'tag' tag_name=tag.name%}">{{ tag.name }}</a>
+          {%endfor%}
         </div>
       </div>
     </div>
