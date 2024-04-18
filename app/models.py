@@ -85,5 +85,5 @@ class Profile(models.Model):
     avatar = models.ImageField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user.name}"
+        return f"{self.user.username}"
 

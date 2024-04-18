@@ -16,18 +16,18 @@ class Command(BaseCommand):
         question_count = ratio * 10
         answer_count = ratio * 100
         tag_count = ratio
-        questionlike_count = ratio * 100
-        answerlike_count = ratio * 100
+        questionlike_count = ratio * 10
+        answerlike_count = ratio * 10
 
         #self.create_users(user_count)
         # self.create_tags(tag_count)
         # self.create_questions(question_count)
         # self.create_answers(answer_count)
         #self.create_questionlikes(questionlike_count)
-        self.create_answerlikes(answerlike_count)
+        #self.create_answerlikes(answerlike_count)
         #self.set_like_numbers()
         #self.tags_questions()
-        #self.create_profiles(user_count)
+        self.create_profiles(user_count)
 
     def create_users(self, count):
         print("Start: users")
