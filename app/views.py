@@ -40,7 +40,7 @@ def question(request, question_id):
     if request.method == "POST":
         answer_form = AnswerForm(request.POST)
         if answer_form.is_valid():
-            text = answer_form.cleaned_data['answer']
+            text = answer_form.cleaned_data['text']
             answer = Answer.objects.create(
                 text = text,
                 user = request.user,
@@ -48,7 +48,6 @@ def question(request, question_id):
             )
             return redirect('question', question_id=question_id)
     return render(request, "question.html", {"question": item, "answers" : answers, "form": answer_form, 'popular_tags': popular_tags})
-
 
 def ask(request):
     popular_tags = Tag.objects.get_popular()
@@ -60,13 +59,17 @@ def ask(request):
             title = question_form.cleaned_data['title']
             text = question_form.cleaned_data['text']
             tags_input = question_form.cleaned_data['tags']
-            tags = [tag.strip() for tag in tags_input.split(',')]
+            tags = [tag.strip() for tag in tags_input.split(' ')]
+            if len(tags) > 3:
+                error_message = "You cannot use more than 3 tags"
+                return render(request, "signup.html", {'form': question_form, 'error_message': error_message})
             question = Question.objects.create(
                 title=title,
                 text=text,
                 user=request.user
             )
             for tag_name in tags:
+                print(tag_name)
                 tag, created = Tag.objects.get_or_create(name=tag_name)
                 question.tags.add(tag)
 
@@ -82,29 +85,19 @@ def hot(request):
 
 def signup(request):
     popular_tags = Tag.objects.get_popular()
-    if request.method == "GET":
+    if request.method == 'GET':
         user_form = RegisterForm()
-    if request.method == "POST":
+    if request.method == 'POST':
         user_form = RegisterForm(request.POST)
         if user_form.is_valid():
-            username = user_form.cleaned_data['login']
-            email = user_form.cleaned_data['email']
-            password = user_form.cleaned_data['password']
-            nickname = user_form.cleaned_data['nickname']
-            password2 = user_form.cleaned_data['password2']
-            avatar = user_form.cleaned_data['avatar']
-            if password != password2:
-                error_message = "Passwords do not match"
-                return render(request, "signup.html", {'form': user_form, 'error_message': error_message})
-            if User.objects.filter(username=username).exists():
-                error_message = "This username is already taken. Please choose another one."
-                return render(request, 'signup.html', {'form': user_form, 'error_message': error_message})
-            user = User.objects.create_user(username=username, email=email, password=password)
-            user = authenticate(request, username=username, password=password)
+            user = user_form.save()
+            auth.login(request, user)
+            profile = Profile.objects.create(user=user, avatar=user_form.cleaned_data['avatar'])
             if user:
-                login(request, user)
-            return redirect('index')
-    return render(request, 'signup.html', {'form': user_form, 'popular_tags': popular_tags})
+                return redirect(reverse('index'))
+            else:
+                user_form.add_error(field=None, error="User saving error!")
+    return render(request, "signup.html", {'form': user_form, 'popular_tags': popular_tags})
 
 
 def log_in(request):
@@ -133,21 +126,11 @@ def logout(request):
 def profile_edit(request):
     popular_tags = Tag.objects.get_popular()
     if request.method == "GET":
-        settings_form = SettingsForm(initial={'email': request.user.email, 'login': request.user.username})
+        settings_form = SettingsForm(initial={'username': request.user.username})
     if request.method == "POST":
         settings_form = SettingsForm(request.POST, request.FILES)
         if settings_form.is_valid():
-            email = settings_form.cleaned_data['email']
-            login = settings_form.cleaned_data['login']
-            nickname = settings_form.cleaned_data['nickname']
-            avatar = settings_form.cleaned_data['avatar']
-
-            user = request.user
-            user.email = email
-            user.username = login
-            user.nickname = nickname
-            user.save()
-
+            user = settings_form.save()
             return redirect('profile_edit')
     return render(request, "profile_edit.html", {'form': settings_form, 'popular_tags': popular_tags})
 

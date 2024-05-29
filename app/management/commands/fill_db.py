@@ -25,7 +25,7 @@ class Command(BaseCommand):
         # self.create_answers(answer_count)
         #self.create_questionlikes(questionlike_count)
         #self.create_answerlikes(answerlike_count)
-        self.set_like_numbers()
+        #self.set_like_numbers()
         #self.tags_questions()
         #self.create_profiles(user_count)
 

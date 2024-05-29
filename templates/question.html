@@ -12,7 +12,7 @@
   <form method="post" action="" style="margin: 15px">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary">Post</button>
+    <button type="submit" class="btn btn btn-dark">Post</button>
     </form>
   {% include "layouts/pagination.html" with page_obj=answers %}
 </div>
