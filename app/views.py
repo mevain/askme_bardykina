@@ -25,12 +25,14 @@ def pagination(objects, request, per_page):
 
 # Create your views here.
 def index(request):
+    popular_tags = Tag.objects.get_popular()
     questions = pagination(Question.objects.get_new(), request, 5)
-    return render(request, "index.html", {"questions": questions})
+    return render(request, "index.html", {"questions": questions, 'popular_tags': popular_tags})
 
 @require_http_methods(['GET', 'POST'])
 
 def question(request, question_id):
+    popular_tags = Tag.objects.get_popular()
     answers = pagination(Answer.objects.filter(question=question_id).order_by('-created_at'), request, 5)
     item = get_object_or_404(Question, id=question_id)
     if request.method == "GET":
@@ -45,10 +47,11 @@ def question(request, question_id):
                 question = item
             )
             return redirect('question', question_id=question_id)
-    return render(request, "question.html", {"question": item, "answers" : answers, "form": answer_form})
+    return render(request, "question.html", {"question": item, "answers" : answers, "form": answer_form, 'popular_tags': popular_tags})
 
 
 def ask(request):
+    popular_tags = Tag.objects.get_popular()
     if request.method == "GET":
         question_form = QuestionForm()
     if request.method == 'POST':
@@ -70,13 +73,15 @@ def ask(request):
             question_id = question.id
             print(question_id)
             return redirect(reverse('question', kwargs={'question_id': question_id}))
-    return render(request, "ask.html", {'form': question_form})
+    return render(request, "ask.html", {'form': question_form, 'popular_tags': popular_tags})
 
 def hot(request):
+    popular_tags = Tag.objects.get_popular()
     questions = pagination(Question.objects.get_hot(), request, 5)
-    return render(request, "hot.html", {"questions": questions})
+    return render(request, "hot.html", {"questions": questions, 'popular_tags': popular_tags})
 
 def signup(request):
+    popular_tags = Tag.objects.get_popular()
     if request.method == "GET":
         user_form = RegisterForm()
     if request.method == "POST":
@@ -99,10 +104,11 @@ def signup(request):
             if user:
                 login(request, user)
             return redirect('index')
-    return render(request, 'signup.html', {'form': user_form})
+    return render(request, 'signup.html', {'form': user_form, 'popular_tags': popular_tags})
 
 
 def log_in(request):
+    popular_tags = Tag.objects.get_popular()
     if request.method == 'GET':
         login_form = LoginForm()
     if request.method == 'POST':
@@ -118,13 +124,14 @@ def log_in(request):
             else:
                 error_message = "Invalid username or password"
                 return render(request, 'log_in.html', {'form': login_form, 'error_message' : error_message})
-    return render(request, "log_in.html", context={"form": login_form})
+    return render(request, "log_in.html", context={"form": login_form, 'popular_tags': popular_tags})
 
 def logout(request):
     auth.logout(request)
     return redirect('index')
 
 def profile_edit(request):
+    popular_tags = Tag.objects.get_popular()
     if request.method == "GET":
         settings_form = SettingsForm(initial={'email': request.user.email, 'login': request.user.username})
     if request.method == "POST":
@@ -142,8 +149,9 @@ def profile_edit(request):
             user.save()
 
             return redirect('profile_edit')
-    return render(request, "profile_edit.html", {'form': settings_form})
+    return render(request, "profile_edit.html", {'form': settings_form, 'popular_tags': popular_tags})
 
 def tag(request, tag_name):
+    popular_tags = Tag.objects.get_popular()
     questions = pagination(Question.objects.get_tag(tag_name), request, 5)
-    return render(request, "tag.html", {"questions": questions, "tag_name": tag_name})
+    return render(request, "tag.html", {"questions": questions, "tag_name": tag_name, 'popular_tags': popular_tags})

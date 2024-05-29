@@ -48,17 +48,13 @@
           {% block content %}
           {% endblock %}
           <div class="col">
+            {% if user.is_authenticated %}
             <h3>Popular Tags</h3>
             <div class="row">
               <div class="col">
-                <button class="btn btn-primary" onclick="location.href='{%url 'tag' tag_name="perl"%}'" style="margin: 3px;">perl</button>
-                <button class="btn btn-secondary" onclick="location.href='{%url 'tag' tag_name="python"%}'" style="margin: 3px;">python</button>
-                <button class="btn btn-success" onclick="location.href='{%url 'tag' tag_name="SQL"%}'" style="margin: 3px;">SQL</button>
-                <button class="btn btn-danger" onclick="location.href='{%url 'tag' tag_name="TechnoPark"%}'" style="margin: 3px;">TechnoPark</button>
-                <button class="btn btn-warning" onclick="location.href='{%url 'tag' tag_name="django"%}'" style="margin: 3px;">django</button>
-                <button class="btn btn-info" onclick="location.href='{%url 'tag' tag_name="mail.ru"%}'" style="margin: 3px;">mail.ru</button>
-                <button class="btn btn-light" onclick="location.href='{%url 'tag' tag_name="Voloshin"%}'" style="margin: 3px;">Voloshin</button>
-                <button class="btn btn-dark" onclick="location.href='{%url 'tag' tag_name="Firefox"%}'" style="margin: 3px;">Firefox</button>
+                {% for tag in popular_tags %}
+                <button class="btn btn btn-primary" onclick="location.href='{%url 'tag' tag_name=tag.name%}'" style="margin: 3px;">{{tag.name}}</button>
+                {% endfor %}
               </div>
             </div>
             <h3 class="mt-5">Best Members</h3>
@@ -69,6 +65,7 @@
               <a href="{% url 'index'%}" class="d-block">Queen Victoria</a>
               <a href="{% url 'index'%}" class="d-block">V. Pupkin</a>
             </div>
+            {% endif%}
         </div>
       </main>
       <footer class="fixed-bottom p-3 bg-light">

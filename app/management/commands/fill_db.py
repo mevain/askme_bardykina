@@ -25,9 +25,9 @@ class Command(BaseCommand):
         # self.create_answers(answer_count)
         #self.create_questionlikes(questionlike_count)
         #self.create_answerlikes(answerlike_count)
-        #self.set_like_numbers()
+        self.set_like_numbers()
         #self.tags_questions()
-        self.create_profiles(user_count)
+        #self.create_profiles(user_count)
 
     def create_users(self, count):
         print("Start: users")
@@ -109,14 +109,24 @@ class Command(BaseCommand):
         print("Start: set likes to questions")
         questions = Question.objects.all()
         for question in questions:
-            question.like_number = len(QuestionLike.objects.filter(question=question))
+            likes_value = 0
+            likes = QuestionLike.objects.filter(question=question)
+            for like in likes:
+                likes_value = likes_value + like.value
+
+            question.like_number = likes_value
             question.save()
         print('Finish: set likes to questions')
 
         print("Start: set likes to answers")
         answers = Answer.objects.all()
         for answer in answers:
-            answer.like_number = len(AnswerLike.objects.filter(answer=answer))
+            likes_value = 0
+            likes = AnswerLike.objects.filter(answer=answer)
+            for like in likes:
+                likes_value = likes_value + like.value
+
+            answer.like_number = likes_value
             answer.save()
         print('Finish: set likes to answers')
 

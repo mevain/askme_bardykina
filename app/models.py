@@ -4,11 +4,17 @@ from datetime import date
 
 # Create your models here.
 
+class TagManager(models.Manager):
+    def get_popular(self):
+        return self.annotate(rating=models.Sum('question__like_number')).order_by('-rating')[:5]
+        
 
 class Tag(models.Model):
     name = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    objects = TagManager()
 
     def __str__(self):
         return self.name
