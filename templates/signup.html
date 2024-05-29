@@ -1,56 +1,20 @@
 
 {% extends "layouts/base.html" %}
 {% load static %}
+{% load django_bootstrap5 %}
 
 {%block content%}
          <div class="col-8" style="margin-right: 30px;">
             <h1>Sign up</h1>
-            <p style="color: red">This nickname is already taken</p>
-            <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                  <span>Login</span>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
-                    </div>
-                </div>
-              </div>
-              <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                  <span>Email address</span>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
-                    </div>
-                </div>
-              </div>
-              <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                  <span>NickName</span>
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
-                    </div>
-                </div>
-              </div>
-              <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                  <span>Upload avatar</span>
-                </div>
-                <div class="col-6">
-                    <div class="d-flex gap-2">
-                        <input type="text" value="c:\avatar.jpg" style="max-width: 170px; border-radius: 5px;" readonly="true"/>
-                        <input class="btn btn-dark" type="button" value="Choose">
-                      </div>
-                </div>
-              </div>
-              <div class="row g-0 mb-3">
-                <div class="col-3 p-2 text-center">
-                    <button type="button" class="btn btn-dark" onclick="location.href='{% url 'index' %}'">Register</button>
-                </div>
-              </div>
+              {% if error_message %}
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }}
+            </div>
+        {% endif %}
+              <form method="post" action="">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-dark">Submit</button>
+              </form>
           </div>
 {% endblock %}

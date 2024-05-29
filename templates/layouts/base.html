@@ -12,23 +12,35 @@
 <body style="padding-bottom: 60px;">
     <nav class="navbar bg-light" style="height:68px">
         <div class="container-fluid container-lg">
-            <a class="navbar-brand">AskPupkin</a>
+            <a class="navbar-brand" href="{% url 'index' %}">AskPupkin</a>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <input class="btn btn-dark" type="button" value="Ask!" onclick="location.href='{% url 'ask' %}'">
             </form>
+            {% if user.is_authenticated %}
             <div class="d-flex justify-content-between gap-2" style="width:185px;">
                 <div class="border">
                   <img src="{% static 'img/avatar.jpg' %}" width="50" height="50" border = "1px"/>
                 </div>
                 <div class="d-flex flex-column justify-content-between">
-                  <div>Dr. Pepper</div>
+                  <div> {{ user.username }} </div>
                   <div class="d-flex justify-content-evenly gap-2">
                     <a href="{% url 'profile_edit' %}">Settings</a>
-                    <a href="{% url 'index' %}">Log out</a>
+                    <a href="{% url 'logout' %}">Log out</a>
                   </div>
                 </div>
             </div>
+            {% else %}
+            <div class="d-flex justify-content-between gap-2" style="width:185px;">
+              <div class="d-flex flex-column justify-content-between">
+                <div> Log in or sign up</div>
+                <div class="d-flex justify-content-evenly gap-2">
+                  <a href="{% url 'login' %}">Log in</a>
+                  <a href="{% url 'signup' %}">Sign up</a>
+                </div>
+              </div>
+          </div>
+            {% endif %}
         </div>
       </nav>
       <main class="container-lg mt-3">

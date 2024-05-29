@@ -1,0 +1,48 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+<title>Log in</title>
+{% endblock%}
+
+{% block content%}
+          <div class="col-8" style="margin-right: 30px;">
+            <h1>Log in</h1>
+            {% comment %} <p style="color: red">Sorry, wrong password</p> {% endcomment %}
+            {% comment %} <div class="row g-0 mb-3">
+                <div class="col-3 p-2">
+                  <span>Login</span>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
+                    </div>
+                </div>
+              </div>
+              <div class="row g-0 mb-3">
+                <div class="col-3 p-2">
+                  <span>Email address</span>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
+                    </div>
+                </div>
+              </div>
+              <div class="d-flex gap-2">
+                <input class="btn btn-dark" type="button" value="Log in" onclick="location.href='{% url 'index' %}'">
+                <a href="{% url 'signup' %}" style="display: inline-flex; align-items: center; justify-content: center;">Create new account</a>
+              </div> {% endcomment %}
+              {% if error_message %}
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }}
+            </div>
+        {% endif %}
+              <form method="post" action="">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-dark" >Submit</button>
+              </form>
+          </div>
+{% endblock %}

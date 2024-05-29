@@ -1,5 +1,6 @@
 {% extends "layouts/base.html" %}
 {% load static %}
+{% load django_bootstrap5 %}
 
 {% block title %}
 <title>Profile settings</title>
@@ -7,57 +8,11 @@
 
 {% block content %}
           <div class="col-8" style="margin-right: 30px;">
-            <h1>Settings: Dr. Pepper</h1>
-            <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                  <span>Login</span>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
-                    </div>
-                </div>
-              </div>
-              <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                  <span>Email address</span>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
-                    </div>
-                </div>
-              </div>
-              <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                  <span>NickName</span>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <textarea class="form-control" rows="1" style="resize: none;"></textarea>
-                    </div>
-                </div>
-              </div>
-              <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                  <span>Upload avatar</span>
-                </div>
-                <div class="col">
-                    <div class="border mb-3" style="height: 100px; width:196.5px">
-                        <img
-                          src="{% static 'img/img.jpg' %}"
-                          class="img-fluid rounded-start"
-                          alt="avatar"
-                          style="width:196.5px;height:100px;object-fit: cover"
-                        />
-                      </div>
-                      <button type="button" class="btn btn-dark">Choose</button>
-                </div>
-              </div>
-              <div class="row g-0 mb-3">
-                <div class="col-3 p-2">
-                    <button type="button" class="btn btn-dark">Save</button>
-                </div>
-              </div>
+            <h1>Settings</h1>
+              <form method="post" action="">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              <button type="submit" class="btn btn-dark">Submit</button>
+              </form>
           </div>
 {% endblock %}
