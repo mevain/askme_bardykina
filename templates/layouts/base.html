@@ -35,7 +35,7 @@
               <div class="d-flex flex-column justify-content-between">
                 <div> Log in or sign up</div>
                 <div class="d-flex justify-content-evenly gap-2">
-                  <a href="{% url 'login' %}">Log in</a>
+                  <a href="{% url 'login' %}?next={{request.path}}">Log in</a>
                   <a href="{% url 'signup' %}">Sign up</a>
                 </div>
               </div>

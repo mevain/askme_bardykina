@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate
 from django.views.decorators.http import require_http_methods
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
@@ -33,20 +34,25 @@ def index(request):
 
 def question(request, question_id):
     popular_tags = Tag.objects.get_popular()
-    answers = pagination(Answer.objects.filter(question=question_id).order_by('-created_at'), request, 5)
     item = get_object_or_404(Question, id=question_id)
+    answers = Answer.objects.filter(question=item).order_by('-created_at')
+    paginated_answers = pagination(answers, request, 5)
+    
     if request.method == "GET":
         answer_form = AnswerForm()
     if request.method == "POST":
         answer_form = AnswerForm(request.POST)
         if answer_form.is_valid():
             text = answer_form.cleaned_data['text']
-            answer = Answer.objects.create(
-                text = text,
-                user = request.user,
-                question = item
+            new_answer = Answer.objects.create(
+                text=text,
+                user=request.user,
+                question=item
             )
-            return redirect('question', question_id=question_id)
+            answer_position = list(answers).index(new_answer) + 1
+            page_number = (answer_position - 1) // 5 + 1
+
+            return redirect(f'{request.path}?page={page_number}#{new_answer.id}')
     return render(request, "question.html", {"question": item, "answers" : answers, "form": answer_form, 'popular_tags': popular_tags})
 
 def ask(request):
@@ -102,22 +108,26 @@ def signup(request):
 
 def log_in(request):
     popular_tags = Tag.objects.get_popular()
-    if request.method == 'GET':
-        login_form = LoginForm()
+    redirect_to = request.GET.get('next', '')
     if request.method == 'POST':
+        redirect_to = request.POST.get('next', '')
         login_form = LoginForm(data=request.POST)
         if login_form.is_valid():
             username = login_form.cleaned_data['login']
             password = login_form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
-
             if user:
                 login(request, user)
-                return redirect(reverse('index'))
+                if redirect_to:
+                    return HttpResponseRedirect(redirect_to)
+                return redirect('index')
             else:
                 error_message = "Invalid username or password"
-                return render(request, 'log_in.html', {'form': login_form, 'error_message' : error_message})
-    return render(request, "log_in.html", context={"form": login_form, 'popular_tags': popular_tags})
+                return render(request, 'log_in.html', {'form': login_form, 'error_message': error_message, 'redirect_to': redirect_to})
+    else:
+        login_form = LoginForm()
+
+    return render(request, "log_in.html", context={"form": login_form, 'popular_tags': popular_tags, 'redirect_to': redirect_to})
 
 def logout(request):
     auth.logout(request)

@@ -5,15 +5,17 @@
 {% block content %}
 <div class="col-8" style="margin-right: 30px;">
   {% include "layouts/question_detail.html" with item=question %}
-  {%for answer in answers%}
-    {% include "layouts/answer.html" with item=answer%}
-  {%endfor%}
-  <h3> Know the answer? <h3>
+  {% for answer in answers %}
+    <div id="{{ answer.id }}">
+      {% include "layouts/answer.html" with item=answer %}
+    </div>
+  {% endfor %}
+  <h3> Know the answer? </h3>
   <form method="post" action="" style="margin: 15px">
     {% csrf_token %}
     {% bootstrap_form form %}
-    <button type="submit" class="btn btn btn-dark">Post</button>
-    </form>
+    <button type="submit" class="btn btn-dark">Post</button>
+  </form>
   {% include "layouts/pagination.html" with page_obj=answers %}
 </div>
 {% endblock %}
