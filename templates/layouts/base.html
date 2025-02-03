@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+    {% block title %}
+    {% endblock %}
+</head>
+<body style="padding-bottom: 60px;">
+    <nav class="navbar bg-light" style="height:68px">
+        <div class="container-fluid container-lg">
+            <a class="navbar-brand" href="{% url 'index' %}">AskPupkin</a>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="btn btn-dark" type="button" value="Ask!" onclick="location.href='{% url 'ask' %}'">
+            </form>
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-between gap-2" style="width:185px;">
+                <div class="border">
+                  <img src="{% static 'img/avatar.jpg' %}" width="50" height="50" border = "1px"/>
+                </div>
+                <div class="d-flex flex-column justify-content-between">
+                  <div> {{ user.username }} </div>
+                  <div class="d-flex justify-content-evenly gap-2">
+                    <a href="{% url 'profile_edit' %}">Settings</a>
+                    <a href="{% url 'logout' %}">Log out</a>
+                  </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="d-flex justify-content-between gap-2" style="width:185px;">
+              <div class="d-flex flex-column justify-content-between">
+                <div> Log in or sign up</div>
+                <div class="d-flex justify-content-evenly gap-2">
+                  <a href="{% url 'login' %}?next={{request.path}}">Log in</a>
+                  <a href="{% url 'signup' %}">Sign up</a>
+                </div>
+              </div>
+          </div>
+            {% endif %}
+        </div>
+      </nav>
+      <main class="container-lg mt-3">
+        <div class="row">
+          {% block content %}
+          {% endblock %}
+          <div class="col">
+            {% if user.is_authenticated %}
+            <h3>Popular Tags</h3>
+            <div class="row">
+              <div class="col">
+                {% for tag in popular_tags %}
+                <button class="btn btn btn-primary" onclick="location.href='{%url 'tag' tag_name=tag.name%}'" style="margin: 3px;">{{tag.name}}</button>
+                {% endfor %}
+              </div>
+            </div>
+            <h3 class="mt-5">Best Members</h3>
+            <div>
+              <a href="{% url 'index'%}" class="d-block">Mr. Freeman</a>
+              <a href="{% url 'index'%}" class="d-block">Dr. Pepper</a>
+              <a href="{% url 'index'%}" class="d-block">Ksenia Bardykina</a>
+              <a href="{% url 'index'%}" class="d-block">Queen Victoria</a>
+              <a href="{% url 'index'%}" class="d-block">V. Pupkin</a>
+            </div>
+            {% endif%}
+        </div>
+      </main>
+      <footer class="fixed-bottom p-3 bg-light">
+        <div class="container">
+          <span class="text-muted">AskPupkin</span>
+        </div>
+      </footer>
+      <script
+        src="{% static 'js/bootstrap.bundle.min.js' %}"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+      ></script>
+</body>
+</html>

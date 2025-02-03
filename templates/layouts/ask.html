@@ -1,0 +1,11 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
+<div class="col-8" style="margin-right: 30px;">
+    <h1>New Question</h1>
+      <form method="post" action="">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <button type="submit" class="btn btn-dark">Submit</button>
+      </form>
+    </div>

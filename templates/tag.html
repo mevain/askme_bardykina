@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="col-8" style="margin-right: 30px;">
+  <div class="d-flex align-items-center gap-4">
+    <h1>Tag: {{ tag_name }}</h1>
+    <a href={% url 'index' %}>New Questions</a>
+  </div>
+    {% for question in questions %}
+
+        {% include "layouts/question.html" with item=question%}
+
+    {% endfor %}
+
+{% include "layouts/pagination.html" with page_obj=questions cur_url="index" %}
+</div>
+{% endblock %}

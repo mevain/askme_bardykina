@@ -1,0 +1,29 @@
+.pagination > li > a
+{
+    background-color: white;
+    color: black;
+}
+
+.pagination > .active > a
+{
+    background-color: black;
+    color: white; 
+    border: solid 1px black !Important;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: black !Important;
+    border: solid 1px black;
+    color: white;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #5a5a5a;
+    background-color: #efeeee;
+    border-color: #ddd;
+}
